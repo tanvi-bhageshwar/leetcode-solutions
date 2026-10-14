@@ -8,7 +8,6 @@ class Solution {
 
         int i = 0;
         int j = 0;
-
         int n = firstList.length;
         int m = secondList.length;
 
@@ -20,21 +19,31 @@ class Solution {
             int start2 = secondList[j][0];
             int end2 = secondList[j][1];
 
-            // Find the intersection
-            int s = Math.max(start1, start2);
-            int e = Math.min(end1, end2);
+            if (start1 <= start2) {
 
-            // If intersection exists
-            if (s <= e) {
-                List<Integer> list = new ArrayList<>();
+                if (start2 <= end1) {
+                    int s = Math.max(start1, start2);
+                    int e = Math.min(end1, end2);
 
-                list.add(s);
-                list.add(e);
+                    List<Integer> list = new ArrayList<>();
+                    list.add(s);
+                    list.add(e);
+                    res.add(list);
+                }
 
-                res.add(list);
+            } else {
+
+                if (start1 <= end2) {
+                    int s = Math.max(start1, start2);
+                    int e = Math.min(end1, end2);
+
+                    List<Integer> list = new ArrayList<>();
+                    list.add(s);
+                    list.add(e);
+                    res.add(list);
+                }
             }
 
-            // Move the pointer whose interval ends first
             if (end1 <= end2) {
                 i++;
             } else {
@@ -42,7 +51,6 @@ class Solution {
             }
         }
 
-        // Convert ArrayList to int[][]
         int[][] ans = new int[res.size()][2];
 
         for (int k = 0; k < res.size(); k++) {
